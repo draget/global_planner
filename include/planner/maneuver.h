@@ -21,8 +21,8 @@
 #include "planner/pose.h"
 #include "planner/typedefs.h"
 
-DECLARE_double(min_manouver_length);
-DECLARE_double(manouver_speed_gain);
+DECLARE_double(min_maneuver_length);
+DECLARE_double(maneuver_speed_gain);
 DECLARE_double(granularity);
 DECLARE_double(collision_standart_deviation);
 DECLARE_double(max_curvature);
@@ -78,7 +78,7 @@ using boost::math::normal;
 class Maneuver {
  public:
   /*!
-   * Constructs a Manouver by calculating the coefficients of the polynomnial.
+   * Constructs a maneuver by calculating the coefficients of the polynomnial.
    *
    * \see Baseframe, [Eigen::Dense], [boost::geometry::index::rtree], [Chu2012]
    *
@@ -255,7 +255,7 @@ class Maneuver {
    *
    * The load is reduced by using a Rtree [boost::geometry::index::rtree] as
    * spatial index for efficient searching. The index itself is populated in
-   * Planner::update and availabe in Manouver via Maneuver::_rtree. For every
+   * Planner::update and availabe in maneuver via Maneuver::_rtree. For every
    * pose in a discrete path, first the object aligned bounding box is computed
    * using [boost::geometry] and [boost::geomerty::strategy::transform], from
    * which the axis aligned bounding box can be obtaind via it's envelope.

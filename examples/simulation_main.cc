@@ -44,11 +44,11 @@ int main(int argc, char *argv[]) {
   google::InitGoogleLogging(argv[0]);
 
 
-  FLAGS_number_manouvers = 20;      //30
-  FLAGS_max_manouver_offset = 4;    //4
+  FLAGS_number_maneuvers = 20;      //30
+  FLAGS_max_maneuver_offset = 4;    //4
   FLAGS_granularity = 2;            //1
-  FLAGS_min_manouver_length = 15;   //20
-  FLAGS_manouver_speed_gain = 1;    //1
+  FLAGS_min_maneuver_length = 15;   //20
+  FLAGS_maneuver_speed_gain = 1;    //1
   FLAGS_max_curvature = 0.5;        //0.5
 
   std::vector<std::pair<double, double>> waypoints{
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
   std::mt19937 rnd;
 
   int cone_count = 0;
-  double x_left, y_left, x_rigth, y_rigth, x1, x2, y1, y2;
+  double x1, x2, y1, y2;
   for (int j = 1; j < jack.baseframe().length() - 1; j += cone_dist) {
     auto point_1 = jack.baseframe().P(j - 0.1);
     auto point_2 = jack.baseframe().P(j + 0.1);
@@ -90,25 +90,25 @@ int main(int argc, char *argv[]) {
 
     double x_left = jack.baseframe().P(j).x() + road_width * n[1];
     double y_left = jack.baseframe().P(j).y() - road_width * n[0];
-    double x_rigth = jack.baseframe().P(j).x() - road_width * n[1];
-    double y_rigth = jack.baseframe().P(j).y() + road_width * n[0];
+    double x_right = jack.baseframe().P(j).x() - road_width * n[1];
+    double y_right = jack.baseframe().P(j).y() + road_width * n[0];
 
     normal_distribution<> dist_x_left(x_left, cone_sigma);
     normal_distribution<> dist_y_left(y_left, cone_sigma);
-    normal_distribution<> dist_x_right(x_rigth, cone_sigma);
-    normal_distribution<> dist_y_right(y_rigth, cone_sigma);
+    normal_distribution<> dist_x_right(x_right, cone_sigma);
+    normal_distribution<> dist_y_right(y_right, cone_sigma);
 
     x_left = dist_x_left(rnd);
     y_left = dist_y_left(rnd);
-    x_rigth = dist_x_right(rnd);
-    y_rigth = dist_y_right(rnd);
+    x_right = dist_x_right(rnd);
+    y_right = dist_y_right(rnd);
 
     planner::polygon p1, p2;
     for (double i = 0; i < two_pi<double>(); i += sixth_pi<double>()) {
       x1 = x_left + cone_radius * cos(i);
       y1 = y_left + cone_radius * sin(i);
-      x2 = x_rigth + cone_radius * cos(i);
-      y2 = y_rigth + cone_radius * sin(i);
+      x2 = x_right + cone_radius * cos(i);
+      y2 = y_right + cone_radius * sin(i);
       p1.outer().push_back(planner::point(x1, y1));
       p2.outer().push_back(planner::point(x2, y2));
     }
@@ -155,14 +155,14 @@ int main(int argc, char *argv[]) {
     mapper.map(optimal_path, "color=green");
 
     mapper.map(car.obb(pos)); 
-    normal_distribution<> n_postion_x(m_opt.path()[1].x(),
+    normal_distribution<> n_position_x(m_opt.path()[1].x(),
                                       FLAGS_position_sigma);
-    normal_distribution<> n_postion_y(m_opt.path()[1].y(),
+    normal_distribution<> n_position_y(m_opt.path()[1].y(),
                                       FLAGS_position_sigma);
     normal_distribution<> n_heading(m_opt.path()[1].theta, FLAGS_heading_sigma);
     optimal_path.push_back(m_opt.path()[1]);
-    x = n_postion_x(rnd);
-    y = n_postion_y(rnd);
+    x = n_position_x(rnd);
+    y = n_position_y(rnd);
     heading = n_heading(rnd); 
 //    x = m_opt.path()[1].position.x();
 //    y = m_opt.path()[1].position.y();

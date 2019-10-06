@@ -23,9 +23,9 @@
 #include "planner/typedefs.h"
 
 DECLARE_double(max_steering_angle);
-DECLARE_double(max_manouver_offset);
+DECLARE_double(max_maneuver_offset);
 DECLARE_double(granularity);
-DECLARE_uint64(number_manouvers);
+DECLARE_uint64(number_maneuvers);
 
 namespace planner {
 

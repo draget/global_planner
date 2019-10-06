@@ -60,7 +60,7 @@ class Map {
         << "way point coordinates are not of equal size";
     std::vector<std::pair<double, double>> waypoints;
     std::pair<double, double> fp;
-    for (int i = 0; i < x.size(); i++) {
+    for (unsigned int i = 0; i < x.size(); i++) {
       fp = std::pair<double, double>(x[i], y[i]);
       waypoints.push_back(fp);
     }
@@ -75,7 +75,7 @@ class Map {
         << "way point coordinates are not of equal size";
     std::vector<std::pair<double, double>> fenceposts;
     std::pair<double, double> fp;
-    for (int i = 0; i < x.size(); i++) {
+    for (unsigned int i = 0; i < x.size(); i++) {
       fp = std::pair<double, double>(x[i], y[i]);
       fenceposts.push_back(fp);
     }

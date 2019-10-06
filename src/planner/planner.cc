@@ -19,8 +19,8 @@
 #include "planner/maneuver.h"
 #include "planner/map.h"
 
-DEFINE_double(max_manouver_offset, 4, "maximum offset from baseframe");
-DEFINE_uint64(number_manouvers, 30, "how many manouvers should be considered");
+DEFINE_double(max_maneuver_offset, 4, "maximum offset from baseframe");
+DEFINE_uint64(number_maneuvers, 30, "how many maneuvers should be considered");
 
 /// TODO(roman): add debug output using glog
 namespace planner {
@@ -30,8 +30,8 @@ typedef std::pair<box, std::shared_ptr<polygon>> value;
 typedef bgi::rtree<value, bgi::quadratic<16>> Rtree;
 
 Planner::Planner(std::shared_ptr<Baseframe> const &base)
-    : _m_max{static_cast<double>(FLAGS_number_manouvers)},
-      _q_max{static_cast<double>(FLAGS_max_manouver_offset)},
+    : _m_max{static_cast<double>(FLAGS_number_maneuvers)},
+      _q_max{static_cast<double>(FLAGS_max_maneuver_offset)},
       _baseframe{base},
       _rtree{new Rtree()},
       _last_known_s{0.0},

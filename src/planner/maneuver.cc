@@ -1,5 +1,5 @@
 /*
- * manouver.cc
+ * maneuver.cc
  * Copyright (C) 2017 romancpodolski <mailto:roman.podolski@tum.de>
  *
  * Distributed under terms of the MIT license.
@@ -17,9 +17,9 @@
 
 
 
-DEFINE_double(min_manouver_length, 20.0, "Minimal length of manouver in [m]");
-DEFINE_double(manouver_speed_gain, 1.0,
-              "Gain of manouver length from vehicle speed");
+DEFINE_double(min_maneuver_length, 20.0, "Minimal length of maneuver in [m]");
+DEFINE_double(maneuver_speed_gain, 1.0,
+              "Gain of maneuver length from vehicle speed");
 DEFINE_double(weight_safety, 1.0, "weigthing factor for the safety cost");
 DEFINE_double(weight_smoothness, 1.0,
               "weigthing factor for the smoothness cost");
@@ -51,7 +51,7 @@ Maneuver::Maneuver(const point position, const double heading,
       _drivable{true},
       _collision_length{0.0} {
   const double delta_s_f =
-      FLAGS_manouver_speed_gain * velocity + FLAGS_min_manouver_length;
+      FLAGS_maneuver_speed_gain * velocity + FLAGS_min_maneuver_length;
   s_f(_s_i + delta_s_f);
 
   Eigen::Matrix4d A;
